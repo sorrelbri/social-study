@@ -5,8 +5,7 @@ const authenticate = require('../middleware/authenticate');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // landing page for un-authorized users
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express', user: req.user });
 });
 
 router.get('/auth/google', passport.authenticate('google', { scope: [ 'profile', 'email' ] }));
@@ -21,7 +20,7 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/main', authenticate, (req, res, ) => {
-  res.render('main')
+  res.render('main', {user: req.user})
 })
 
 module.exports = router;

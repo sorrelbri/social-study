@@ -30,6 +30,23 @@ aside {
   margin-right: 30px;
 }
 
+nav {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+nav div.flex-item {
+  padding: 10px;
+}
+
+nav div.flex-item.flex-end {
+  justify-self: flex-end;
+}
+
 a {
   color: #00B7FF;
 }
