@@ -26,3 +26,8 @@ passport.use(new GoogleStrategy(
     });
   }
 ));
+
+passport.serializeUser((user, cb) => cb(null, user.id));
+passport.deserializeUser((id, cb) => {
+  User.findById(id, (err, user) => cb(err, user));
+});
