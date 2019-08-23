@@ -5,6 +5,7 @@ const authenticate = require('../middleware/authenticate');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  // landing page for un-authorized users
   res.render('index', { title: 'Express' });
 });
 
