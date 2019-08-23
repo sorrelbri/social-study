@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ResourceSchema = require('./resource');
+const ResourceModel = require('./resource');
 
-const HighlightSchema = new Schema({
-  }, { timestamps: true }
+const HighlightSchema = ResourceModel.discriminator(
+  'Bookmark', 
+  new Schema( 
+    {}, 
+  )
 )
 
-module.exports = HighlightSchema;
+module.exports = HighlightModel;

@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const BookmarkSchema = require('./resources/bookmark');
+const Bookmark = require('./resources/bookmark');
 
 const userSchema = new Schema({
   name: String,
   email: String,
   avatar: String,
   googleId: String,
-  bookmarks: [BookmarkSchema],
+  bookmarks: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Bookmark'
+  }],
   commments: {
-    type: mongoose.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Comment'
   }
 }, {
