@@ -1,6 +1,33 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 64px 100%;
+  grid-gap: 30px;
+  background-color: rgba(100, 150, 200, 0.5);
+  grid-template-areas:
+    "hdr hdr"
+    "content side";
+}
+
+header {
+  grid-area: hdr;
+  background-color: rgba(200, 100, 200, 0.7);
+}
+
+content {
+  grid-area: content;
+  background-color: rgba(200, 200, 70, 0.7);
+  margin-left: 30px;
+}
+
+aside {
+  grid-area: side;
+  background-color: rgba(200, 70, 100, 0.7);
+  margin-right: 30px;
 }
 
 a {

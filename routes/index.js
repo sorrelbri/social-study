@@ -21,7 +21,7 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/main', authenticate, (req, res, ) => {
-  // where render of main user page occurs
+  res.render('main')
 })
 
 module.exports = router;
