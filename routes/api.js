@@ -1,27 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
-const authenticate = require('../middleware/authenticate');
+
 const lessonCtrl = require('../controllers/api/lessons');
 const commentCtrl = require('../controllers/api/comments');
 const bookmarkCtrl = require('../controllers/api/bookmarks');
 const highlightCtrl = require('../controllers/api/highlights');
 
 // Lessons
-router.get('/api/lessons/:id', authenticate, lessonCtrl.show);
+router.get('/lessons/:id', lessonCtrl.show);
 
 // Comments
-router.get('/api/comments/:id', authenticate, commentCtrl.show);
-router.put('/api/comments/:id', authenticate, commentCtrl.edit);
-router.delete('/api/comments/:id', authenticate, commentCtrl.delete);
-router.post('/api/lessons/:id/comments', authenticate, commentCtrl.create);
-router.post('/api/comments/:id/thread', authenticate, commentCtrl.thread);
+router.get('/comments/:id', commentCtrl.show);
+router.put('/comments/:id', commentCtrl.edit);
+router.delete('/comments/:id', commentCtrl.delete);
+router.post('/lessons/:id/comments', commentCtrl.create);
+router.post('/comments/:id/thread', commentCtrl.thread);
 
 // Bookmarks
-router.post('/api/lessons/:id/bookmarks/', authenticate, bookmarkCtrl.create);
-router.put('/api/bookmarks/:id', authenticate, bookmarkCtrl.edit);
-router.delete('/api/bookmarks/:id/delete', authenticate, bookmarkCtrl.delete);
+router.post('/lessons/:id/bookmarks/', bookmarkCtrl.create);
+router.put('/bookmarks/:id', bookmarkCtrl.edit);
+router.delete('/bookmarks/:id/delete', bookmarkCtrl.delete);
 
 // Highlights
-router.post('/api/lessons/:id/highlights', authenticate, highlightCtrl.create);
-router.delete('/api/highlights/:id', authenticate, highlightCtrl.delete);
+router.post('/lessons/:id/highlights', highlightCtrl.create);
+router.delete('/highlights/:id', highlightCtrl.delete);
+
+module.exports = router;
