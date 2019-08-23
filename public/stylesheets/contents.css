@@ -1,0 +1,14 @@
+#navigate {
+  display: flex;
+  flex-direction: column;
+}
+
+i.close {
+  background-image: url(/../images/icons/close.png);
+}
+i.expand {
+  background-image: url(/images/icons/expand.png);
+}
+i.study {
+  background-image: url('../images/icons/study.png')
+}

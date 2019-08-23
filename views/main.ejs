@@ -7,6 +7,8 @@
   <meta http-equiv="X-UA-Compatible">
   <link rel="stylesheet" href="/stylesheets/reset.css" />
   <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/contents.css" />
+  <link rel="stylesheet" href="/stylesheets/sides.css" />
   <title></title>
 </head>
 <body>
@@ -16,7 +18,8 @@
     </nav>
   </header>
   <content>
-    <!-- include content -->
+    <%- include('./partials/contents/navigate.ejs') %>
+    <!-- if statement for navigate or lesson partial -->
   </content>
   <aside>
     <!-- include aside -->
