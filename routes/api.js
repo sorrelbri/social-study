@@ -7,7 +7,7 @@ const bookmarkCtrl = require('../controllers/api/bookmarks');
 const highlightCtrl = require('../controllers/api/highlights');
 
 // Lessons
-
+// click from contents/navigate.ejs
 router.get('/lessons/:id', lessonCtrl.show);
 
 // Comments
