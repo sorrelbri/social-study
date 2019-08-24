@@ -10,9 +10,12 @@ const LessonSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Comment'
   }],
-  highlights: [HighlightSchema]
+  highlights: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Highlight'
+  }]
 },
   { timestamps: true }
 );
 
-module.exports = mongoose.Model('Lesson', LessonSchema);
+module.exports = mongoose.model('Lesson', LessonSchema);

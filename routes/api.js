@@ -8,7 +8,7 @@ const highlightCtrl = require('../controllers/api/highlights');
 
 // Lessons
 
-// router.get('/lessons/:id', lessonCtrl.show);
+router.get('/lessons/:id', lessonCtrl.show);
 
 // Comments
 

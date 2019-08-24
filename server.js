@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const request = require('request');
 const session = require('express-session');
 const passport = require('passport');
 require('dotenv').config();
@@ -11,7 +10,6 @@ require('./config/database');
 require('./config/passport');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/api');
 const authenticate = require('./middleware/authenticate');
 
@@ -37,9 +35,6 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use(authenticate);
 app.use('/api', apiRouter);
-
-// probably remove this
-// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
