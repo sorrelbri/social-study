@@ -22,6 +22,7 @@ content {
   grid-area: content;
   background-color: rgba(200, 200, 70, 0.7);
   margin-left: 30px;
+  max-width: 100%;
 }
 
 aside {
