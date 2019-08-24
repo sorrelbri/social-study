@@ -1,6 +1,8 @@
 const request = require('request');
 const showdown = require('showdown');
 const Lesson = require('../models/lesson');
+const atob = require('atob');
+const btoa = require('btoa');
 
 showdown.setOption('excludeTrailingPunctuationFromURLs', 'true');
 const converter = new showdown.Converter();
@@ -22,6 +24,7 @@ function createLesson(req, res, next) {
     }
   };
   request(options, (err, response, body) => {
+    console.log(response);
     parseLesson(body);
   });
 }
@@ -36,7 +39,7 @@ function parseLesson(body) {
   body.content = body.content.replace(/<(?!\/)/g, 'splithere <').split('splithere')
   // iterate over array and add data-position within opening tag then join
   .map((tag, idx) => tag.replace( />/, ` data-position="${idx}">` )).join('');
-  content = btoa(content);
+  body.content = btoa(body.content);
   Lesson.create({
     url: body.url,
     content: body.content,
