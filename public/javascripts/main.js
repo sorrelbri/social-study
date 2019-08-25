@@ -21,17 +21,15 @@ const lessonContainerElem = document.getElementById('lesson-container');
 const resourceContainerElem = document.getElementById('resource-container');
 const menuContainerElem = document.getElementById('menu-container');
 const navigateContainerElem = document.getElementById('navigate-container');
-// const 
+
 //!----- event listeners -----*/ 
 lessonContainerElem.addEventListener('click', handleLessonClick);
 navigateContainerElem.addEventListener('click', handleNavigateClick);
+menuContainerElem.addEventListener('click', handleMenuClick);
+resourceContainerElem.addEventListener('click', handleResourceClick);
 
-// TODO declare these state variables within scope of api/lessons call
-let lesson = lessonContainerElem.getAttribute('data-lesson')
-let lessonUrl = `/api/lessons/${lesson}`;
 //!----- functions -----*/
 
-// getLesson(lessonUrl);
 getMenu();
 
 //* display lesson
@@ -91,8 +89,9 @@ function renderMenu(resources, user) {
 function templateMenuBookmark(bookmarks) {
   let list = ''
   bookmarks.forEach(bookmark => {
+    // TODO api/bookmarks/id for onclick
     list += `
-    <li><a href="api/bookmarks/${bookmark._id}">${bookmark.note}</a><span>${comment.lesson.name}</span></li>
+    <li data-bookmark="${bookmark._id}"><span>${bookmark.note}</span><span>${comment.lesson.name}</span></span>
     `
   })
   return list;
@@ -102,8 +101,9 @@ function templateMenuBookmark(bookmarks) {
 function templateMenuComment(comments) {
   let list = '';
   comments.forEach(comment => {
+    // TODO api/comments/id for onclick
     list += `
-    <li><a href="api/comments/${comment._id}">${comment.note}</a><span>${comment.lesson.name}</span></li>
+    <li data-comment="${comment._id}"><span>${comment.note}</span><span>${comment.lesson.name}</span></li>
     `;
   })
   return list;
@@ -114,9 +114,9 @@ function renderNavigate(lessons) {
   // list for tree each with list for lessons
   let list = '';
   lessons.forEach(lesson => {
-    console.log(lesson)
+    // TODO api/lessons/id for onclick
     list += `
-    <li><a href="api/lessons/${lesson._id}">${lesson.name}</a>
+    <li data-lesson="${lesson._id}">${lesson.name}</li>
     `
   });
   let listElem = document.createElement('ul');
@@ -135,12 +135,24 @@ function handleLessonClick(evt) {
 }
 
 function handleNavigateClick(evt) {
+  evt.stopPropagation();
+  let lesson = evt.target.getAttribute('data-lesson');
+  let lessonUrl = `/api/lessons/${lesson}`;
+  getLesson(lessonUrl);
+}
+
+function handleMenuClick(evt) {
+
+}
+
+function handleResourceClick(evt) {
 
 }
 
 // * render new resource form
 function renderForm(lessonId, pos) {
   let newForm = document.createElement('form');
+  // TODO refactor button for fetch script
   newForm.innerHTML = `
   <input type="text" name="note" placeholder="Write a short note">
   <input type="textarea" name="content" placeholder="Text for Comments">
