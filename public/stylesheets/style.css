@@ -51,3 +51,17 @@ nav div.flex-item.flex-end {
 a {
   color: #00B7FF;
 }
+
+#lesson-container .bookmark::after {
+  background: url('/public/images/icons/study.png');
+  width: 20px;
+  height: 20px;
+}
+
+#lesson-container .highlight {
+  background-color: yellow;
+}
+
+#lesson-container .comment {
+  text-decoration: underline;
+}

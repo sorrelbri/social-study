@@ -74,6 +74,13 @@ function renderResources(resources, user) {
       newCommentElem.classList = 'comment';
       newCommentElem.innerHTML = templateComment(resource, user);
       resourceContainerElem.appendChild(newCommentElem);
+      document.querySelector(`[data-position="${resource.position}"]`).classList += "comment "
+    }
+    if (resource.resource === 'Bookmark') {
+      document.querySelector(`[data-position="${resource.position}"]`).classList += "bookmark "
+    }
+    if (resource.resource === 'Highlight') {
+      document.querySelector(`[data-position="${resource.position}"]`).classList += "highlight "
     }
   })
 }
