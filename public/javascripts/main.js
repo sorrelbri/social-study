@@ -64,6 +64,8 @@ function getMenu() {
 // * display menu aside
 function renderMenu(resources, user) {
   let newMenu = document.createElement('div');
+  let bookmarks = resources.filter(resource => resource.resource === 'Bookmark');
+  let comments = resources.filter(resource => resource.resource === 'Comment');
   newMenu.id = 'menu';
   newMenu.innerHTML = `
   <div id="menu-user">
@@ -72,26 +74,38 @@ function renderMenu(resources, user) {
   <div id="menu-bookmarks">
     <span>My Bookmarks</span>
     <ul class="nested" id="menu-bookmarks-list">
-      ${templateMenuBookmark(resources.filter(resource => resource.resource === 'Bookmark'))}
+      ${templateMenuBookmark(bookmarks) || 'There\'s nothing here yet'}
     </ul>
   </div>
   <div id="menu-comments">
     <span>My Comments</span>
     <ul class="nested" id="menu-comments-list">
-      <li><a href="">Note</a><span>response</span></li>
+      ${templateMenuComment(comments) || 'There\'s nothing here yet'}
     </ul>
   </div>
   `
   menuContainerElem.appendChild(newMenu);
 }
 
-// * create Menu from template
+// * create Menu Bookmark list from template
 function templateMenuBookmark(bookmarks) {
   let list = ''
   bookmarks.forEach(bookmark => {
     list += `
-    <li><a href="api/${bookmark.lesson}">${bookmark.note}</a></li>
+    <li><a href="api/bookmarks/${bookmark.id}">${bookmark.note}</a><span>${comment.lesson.name}</span></li>
     `
+  })
+  return list;
+}
+
+// * create Menu Comment list from template
+function templateMenuComment(comments) {
+  let list = ''
+  comments.forEach(comment => {
+    console.log(comment.lesson);
+    list += `
+    <li><a href="api/comments/${comment.id}">${comment.note}</a><span>${comment.lesson.name}</span></li>
+    `;
   })
   return list;
 }

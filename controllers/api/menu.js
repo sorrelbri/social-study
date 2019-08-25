@@ -11,6 +11,7 @@ function show(req, res, next) {
   Lesson.find({})
   .then(lessons => {
     Resource.find({user: req.user})
+    .populate('lesson')
     .then(resources => {
       let payload = { lessons, resources, user: req.user };
       return res.status(200).json(payload);
