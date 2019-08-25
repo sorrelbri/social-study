@@ -33,7 +33,7 @@ function getLesson(url) {
   .then(response => response.json())
   .then(results => {
     lessonContainerElem.innerHTML = results.lesson;
-    renderResources(results.resources);
+    renderResources(results.resources, results.user);
   })
   .catch(err=> console.log(err))
 }
@@ -65,8 +65,31 @@ function renderForm(lessonId, pos) {
 }
 
 // render resources in sidebar
-function renderResources(resources) {
+function renderResources(resources, user) {
+  console.log(resources);
+  console.log(user);
   resources.forEach(resource => {
-    
+    if (resource.resource === 'Comment') {
+      let newCommentElem = document.createElement('div');
+      newCommentElem.classList = 'comment';
+      newCommentElem.innerHTML = templateComment(resource, user);
+      resourceContainerElem.appendChild(newCommentElem);
+    }
   })
+}
+
+function templateComment(comment, user) {
+  console.log(comment);
+  return `
+  <div class="comment-heading">
+    <div class="comment-note">${comment.note}</div>
+    <div class="comment-user-name">${user.name}</div>
+    <img class="comment-user-avatar" src="${user.avatar}"></img>
+  </div>
+  <div class="comment-body">
+  ${comment.content}
+  </div>
+  <div class="comment-menu">
+  </div>
+  `
 }
