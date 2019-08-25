@@ -28,6 +28,6 @@ router.post('/lessons/:id/highlights/:pos', highlightCtrl.create);
 // router.delete('/highlights/:id', highlightCtrl.delete);
 
 //* Menu
-// router.get('/menu', menuCtrl.show);
+router.get('/menu', menuCtrl.show);
 
 module.exports = router;

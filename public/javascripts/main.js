@@ -25,13 +25,16 @@ const navigateContainerElem = document.getElementById('navigate-container');
 //!----- event listeners -----*/ 
 lessonContainerElem.addEventListener('click', handleLessonClick);
 navigateContainerElem.addEventListener('click', handleNavigateClick);
-//!----- functions -----*/
 
-//* display lesson
+// TODO declare these state variables within scope of api/lessons call
 let lesson = lessonContainerElem.getAttribute('data-lesson')
 let lessonUrl = `/api/lessons/${lesson}`;
-getLesson(lessonUrl);
+//!----- functions -----*/
 
+// getLesson(lessonUrl);
+getMenu();
+
+//* display lesson
 function getLesson(url) {
   console.log(url);
   return fetch(url, GET_OPTIONS)
@@ -60,19 +63,50 @@ function getMenu() {
 
 // * display menu aside
 function renderMenu(resources, user) {
+  let newMenu = document.createElement('div');
+  newMenu.id = 'menu';
+  newMenu.innerHTML = `
+  <div id="menu-user">
+    <span>${user.name}</span><img src="${user.avatar}" >
+  </div>
+  <div id="menu-bookmarks">
+    <span>My Bookmarks</span>
+    <ul class="nested" id="menu-bookmarks-list">
+      ${templateMenuBookmark(resources.filter(resource => resource.resource === 'Bookmark'))}
+    </ul>
+  </div>
+  <div id="menu-comments">
+    <span>My Comments</span>
+    <ul class="nested" id="menu-comments-list">
+      <li><a href="">Note</a><span>response</span></li>
+    </ul>
+  </div>
+  `
+  menuContainerElem.appendChild(newMenu);
+}
 
+// * create Menu from template
+function templateMenuBookmark(bookmarks) {
+  let list = ''
+  bookmarks.forEach(bookmark => {
+    list += `
+    <li><a href="api/${bookmark.lesson}">${bookmark.note}</a></li>
+    `
+  })
+  return list;
 }
 
 // * display lesson navigation pane
 function renderNavigate(lessons) {
-  
+
 }
 
 //* display resource menu
 function handleLessonClick(evt) {
+  // TODO toggle menu and styling
   evt.stopPropagation();
   if (evt.target === lessonContainerElem) return;
-  evt.target.style.backgroundColor = "yellow";
+  evt.target.style.backgroundColor = "yellowgreen";
   let pos = evt.target.getAttribute('data-position');
   renderForm(lesson, pos);
 }
@@ -81,7 +115,7 @@ function handleNavigateClick(evt) {
 
 }
 
-// render new resource form
+// * render new resource form
 function renderForm(lessonId, pos) {
   let newForm = document.createElement('form');
   newForm.innerHTML = `
@@ -98,7 +132,7 @@ function renderForm(lessonId, pos) {
   resourceContainerElem.appendChild(newForm);
 }
 
-// render resources in sidebar
+// * render resources in sidebar
 function renderResources(resources, user) {
   console.log(resources);
   console.log(user);
@@ -119,7 +153,7 @@ function renderResources(resources, user) {
   })
 }
 
-// create Comment from template
+// * create Comment from template
 function templateComment(comment, user) {
   console.log(comment);
   return `
@@ -135,4 +169,3 @@ function templateComment(comment, user) {
   </div>
   `
 }
-

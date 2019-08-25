@@ -10,7 +10,7 @@ function show(req, res, next) {
   //! refactor to Tree.find({}).populate('Lesson').populate('Tree')
   Lesson.find({})
   .then(lessons => {
-    Resource.find({user})
+    Resource.find({user: req.user})
     .then(resources => {
       let payload = { lessons, resources, user: req.user };
       return res.status(200).json(payload);

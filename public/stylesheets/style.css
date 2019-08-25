@@ -53,7 +53,7 @@ a {
 }
 
 #lesson-container .bookmark::after {
-  background: url('/public/images/icons/study.png');
+  background: url('/images/icons/study.png');
   width: 20px;
   height: 20px;
 }
