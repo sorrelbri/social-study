@@ -1,3 +1,4 @@
+'use strict';
 const lessonContainerElem = document.getElementById('lesson-container');
 let lesson = `/api/lessons/${lessonContainerElem.getAttribute('data-lesson')}`;
 

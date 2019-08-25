@@ -15,18 +15,18 @@ router.get('/lessons/:id', lessonCtrl.show);
 // router.get('/comments/:id', commentCtrl.show);
 // router.put('/comments/:id', commentCtrl.edit);
 // router.delete('/comments/:id', commentCtrl.delete);
-// router.post('/lessons/:id/comments', commentCtrl.create);
+// router.post('/lessons/:id/comments/:pos', commentCtrl.create);
 // router.post('/comments/:id/thread', commentCtrl.thread);
 
 // Bookmarks
 
-// router.post('/lessons/:id/bookmarks/', bookmarkCtrl.create);
+router.post('/lessons/:id/bookmarks/:pos', bookmarkCtrl.create);
 // router.put('/bookmarks/:id', bookmarkCtrl.edit);
 // router.delete('/bookmarks/:id/delete', bookmarkCtrl.delete);
 
 // Highlights
 
-// router.post('/lessons/:id/highlights', highlightCtrl.create);
+// router.post('/lessons/:id/highlights/:pos', highlightCtrl.create);
 // router.delete('/highlights/:id', highlightCtrl.delete);
 
 module.exports = router;

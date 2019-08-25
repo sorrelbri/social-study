@@ -38,8 +38,8 @@ function parseLesson(body) {
   // split HTML string into array of tags
   body.content = body.content.replace(/<(?!\/)/g, 'splithere <').split('splithere')
   // iterate over array and add data-position within opening tag then join
-  .map((tag, idx) => tag.replace( />/, ` data-position="${idx}">` )).join('');
-  body.content = btoa(body.content);
+  .map((tag, idx) => tag.replace( />/, ` data-position="${idx}">` )).join(' ');
+  // body.content = btoa(body.content);
   Lesson.create({
     url: body.url,
     content: body.content,
