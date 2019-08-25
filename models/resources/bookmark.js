@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Resource = require('./resource');
 
-const BookmarkSchema = Resource.discriminator(
+const Bookmark = Resource.discriminator(
   'Bookmark', 
   new Schema({
     // Resource,
@@ -13,5 +13,5 @@ const BookmarkSchema = Resource.discriminator(
     }
   })
 ) 
-  
-module.exports = BookmarkSchema;
+
+module.exports = mongoose.model('Bookmark');

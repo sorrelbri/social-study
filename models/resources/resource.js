@@ -8,7 +8,7 @@ const ResourceSchema = new Schema({
   },
   position: String
 },
-  { timestamps: true, discriminatorKey: 'resource', collection: 'resources' }
+  { discriminatorKey: 'resource', collection: 'resources', timestamps: true }
 )
 
 module.exports = mongoose.model('Resource', ResourceSchema);

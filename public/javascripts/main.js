@@ -9,6 +9,7 @@
 const contentElem = document.querySelector('content');
 const lessonContainerElem = document.getElementById('lesson-container');
 const resourceContainerElem = document.getElementById('resource-container');
+// const 
 //!----- event listeners -----*/ 
 lessonContainerElem.addEventListener('click', handleLessonClick);
 //!----- functions -----*/
@@ -39,8 +40,11 @@ function getLesson(url, elem) {
 
 //* display resource menu
 function handleLessonClick(evt) {
+  evt.stopPropagation();
+  if (evt.target === lessonContainerElem) return;
   evt.target.style.backgroundColor = "yellow";
   let pos = evt.target.getAttribute('data-position');
+  pos = pos.replace(/\\"/g, '');
   console.log(pos);
   renderForm(lesson, pos);
 }
@@ -51,7 +55,7 @@ function renderForm(lessonId, pos) {
   newForm.innerHTML = `
   <input type="text" name="note" placeholder="Write a short note">
   <input type="textarea" name="content" placeholder="Text for Comments">
-  <button formaction="/api/lessons/${lessonId}/bookmarks">Bookmark</button>
+  <button formaction="/api/lessons/${lessonId}/bookmarks/${pos}">Bookmark</button>
   <button formaction="/api/lessons/${lessonId}/comments/${pos}">Comment</button>
   <button formaction="/api/lessons/${lessonId}/highlights/${pos}">Highlight</button>
   `;
