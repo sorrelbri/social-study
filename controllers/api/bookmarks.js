@@ -14,7 +14,6 @@ function create(req, res, next) {
       position: req.params.pos
     })
     .then(newBookmark => {
-      console.log(newBookmark);
       req.user.bookmarks.push(newBookmark._id);
     })
     .then(() => {

@@ -43,8 +43,6 @@ function handleLessonClick(evt) {
   if (evt.target === lessonContainerElem) return;
   evt.target.style.backgroundColor = "yellow";
   let pos = evt.target.getAttribute('data-position');
-  pos = pos.replace(/\\"/g, '');
-  console.log(pos);
   renderForm(lesson, pos);
 }
 

@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ResourceSchema = require('./resource');
+const Resource = require('./resource');
 
-const CommentModel = Resource.discriminator(
+const Comment = Resource.discriminator(
   'Comment', 
   new Schema({
+    note: String,
     lesson: {
       type: Schema.Types.ObjectId,
       ref: 'Lesson'
@@ -19,8 +20,7 @@ const CommentModel = Resource.discriminator(
       type: Schema.Types.ObjectId,
       ref: 'Comment'
     }
-  }
-  )
+  })
 )
 
-module.exports = CommentModel;
+module.exports = mongoose.model('Comment');

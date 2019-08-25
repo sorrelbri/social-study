@@ -6,7 +6,7 @@ const Bookmark = Resource.discriminator(
   'Bookmark', 
   new Schema({
     // Resource,
-    name: String,
+    note: String,
     lesson: {
       type: Schema.Types.ObjectId,
       ref: 'Lesson'
