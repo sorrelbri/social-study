@@ -2,6 +2,16 @@
 
 //TODO 
 // import * as getLesson from '/modules/fetch-lessons';
+const MENU_URL = '/api/menu';
+const GET_OPTIONS = {
+  method: 'GET',
+  mode: 'cors',
+  credentials: 'same-origin',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  redirect: 'manual',
+}
 
 //!----- app's state (variables) -----*/ 
 
@@ -9,9 +19,12 @@
 const contentElem = document.querySelector('content');
 const lessonContainerElem = document.getElementById('lesson-container');
 const resourceContainerElem = document.getElementById('resource-container');
+const menuContainerElem = document.getElementById('menu-container');
+const navigateContainerElem = document.getElementById('navigate-container');
 // const 
 //!----- event listeners -----*/ 
 lessonContainerElem.addEventListener('click', handleLessonClick);
+navigateContainerElem.addEventListener('click', handleNavigateClick);
 //!----- functions -----*/
 
 //* display lesson
@@ -21,21 +34,38 @@ getLesson(lessonUrl);
 
 function getLesson(url) {
   console.log(url);
-  return fetch(url, {
-    method: 'GET',
-    mode: 'cors',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'manual',
-  })
+  return fetch(url, GET_OPTIONS)
   .then(response => response.json())
   .then(results => {
+    navigateContainerElem.innerHTML = '';
+    menuContainerElem.innerHTML = '';
     lessonContainerElem.innerHTML = results.lesson;
     renderResources(results.resources, results.user);
   })
   .catch(err=> console.log(err))
+}
+
+//* load menu and navigate
+function getMenu() {
+  return fetch(MENU_URL, GET_OPTIONS)
+  .then(response => response.json())
+  .then(results => {
+    lessonContainerElem.innerHTML = '';
+    resourceContainerElem.innerHTML = '';
+    // results.lessons, results.resources, results.user
+    renderMenu(results.resources, results.user);
+    renderNavigate(results.lessons);
+  })
+}
+
+// * display menu aside
+function renderMenu(resources, user) {
+
+}
+
+// * display lesson navigation pane
+function renderNavigate(lessons) {
+  
 }
 
 //* display resource menu
@@ -45,6 +75,10 @@ function handleLessonClick(evt) {
   evt.target.style.backgroundColor = "yellow";
   let pos = evt.target.getAttribute('data-position');
   renderForm(lesson, pos);
+}
+
+function handleNavigateClick(evt) {
+
 }
 
 // render new resource form
@@ -85,6 +119,7 @@ function renderResources(resources, user) {
   })
 }
 
+// create Comment from template
 function templateComment(comment, user) {
   console.log(comment);
   return `
@@ -100,3 +135,4 @@ function templateComment(comment, user) {
   </div>
   `
 }
+

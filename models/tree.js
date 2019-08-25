@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Lesson = require('./lesson');
 
 const TreeSchema = new Schema({
   name: String,
@@ -17,4 +16,4 @@ const TreeSchema = new Schema({
   { timestamps: true }
 )
 
-module.exports = mongoose.Model('Tree', TreeSchema)
+module.exports = mongoose.model('Tree', TreeSchema)
