@@ -31,7 +31,6 @@ function getLesson(url, elem) {
     redirect: 'manual',
   })
   .then(response => response.json())
-  .then(data => JSON.stringify(data))
   .then(results => {
     elem.innerHTML = results;
   })
@@ -55,6 +54,8 @@ function renderForm(lessonId, pos) {
   newForm.innerHTML = `
   <input type="text" name="note" placeholder="Write a short note">
   <input type="textarea" name="content" placeholder="Text for Comments">
+  <input type="checkbox" id="public-comment" name="public" checked>
+  <label for="public-comment">Make Comment Public</label>
   <button formaction="/api/lessons/${lessonId}/bookmarks/${pos}">Bookmark</button>
   <button formaction="/api/lessons/${lessonId}/comments/${pos}">Comment</button>
   <button formaction="/api/lessons/${lessonId}/highlights/${pos}">Highlight</button>
