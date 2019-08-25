@@ -92,7 +92,7 @@ function templateMenuBookmark(bookmarks) {
   let list = ''
   bookmarks.forEach(bookmark => {
     list += `
-    <li><a href="api/bookmarks/${bookmark.id}">${bookmark.note}</a><span>${comment.lesson.name}</span></li>
+    <li><a href="api/bookmarks/${bookmark._id}">${bookmark.note}</a><span>${comment.lesson.name}</span></li>
     `
   })
   return list;
@@ -100,11 +100,10 @@ function templateMenuBookmark(bookmarks) {
 
 // * create Menu Comment list from template
 function templateMenuComment(comments) {
-  let list = ''
+  let list = '';
   comments.forEach(comment => {
-    console.log(comment.lesson);
     list += `
-    <li><a href="api/comments/${comment.id}">${comment.note}</a><span>${comment.lesson.name}</span></li>
+    <li><a href="api/comments/${comment._id}">${comment.note}</a><span>${comment.lesson.name}</span></li>
     `;
   })
   return list;
@@ -112,7 +111,17 @@ function templateMenuComment(comments) {
 
 // * display lesson navigation pane
 function renderNavigate(lessons) {
-
+  // list for tree each with list for lessons
+  let list = '';
+  lessons.forEach(lesson => {
+    console.log(lesson)
+    list += `
+    <li><a href="api/lessons/${lesson._id}">${lesson.name}</a>
+    `
+  });
+  let listElem = document.createElement('ul');
+  listElem.innerHTML = list;
+  navigateContainerElem.appendChild(listElem);
 }
 
 //* display resource menu
