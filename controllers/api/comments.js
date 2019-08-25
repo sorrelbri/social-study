@@ -13,7 +13,8 @@ function create(req, res, next) {
       lesson: lesson._id,
       position: req.params.pos,
       public: req.body.public === 'checked' ? true : false,
-      content: req.body.content
+      content: req.body.content,
+      user: req.user
     })
     .then(newComment => {
       console.log(newComment);

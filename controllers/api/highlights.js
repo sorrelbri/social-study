@@ -11,6 +11,7 @@ function create(req, res, next) {
     Highlight.create({
       lesson: lesson._id,
       position: req.params.pos,
+      user: req.user
     })
     .then(newHighlight => {
       console.log(newHighlight);

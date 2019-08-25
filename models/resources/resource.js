@@ -6,7 +6,11 @@ const ResourceSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  position: String
+  position: String,
+  lesson: {
+    type: Schema.Types.ObjectId,
+    ref: 'Lesson'
+  }
 },
   { discriminatorKey: 'resource', collection: 'resources', timestamps: true }
 )

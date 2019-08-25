@@ -5,12 +5,7 @@ const Resource = require('./resource');
 const Bookmark = Resource.discriminator(
   'Bookmark', 
   new Schema({
-    // Resource,
     note: String,
-    lesson: {
-      type: Schema.Types.ObjectId,
-      ref: 'Lesson'
-    }
   })
 ) 
 

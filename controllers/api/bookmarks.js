@@ -11,7 +11,8 @@ function create(req, res, next) {
     Bookmark.create({
       note: req.body.note,
       lesson: lesson._id,
-      position: req.params.pos
+      position: req.params.pos,
+      user: req.user
     })
     .then(newBookmark => {
       req.user.bookmarks.push(newBookmark._id);

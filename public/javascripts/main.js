@@ -17,9 +17,9 @@ lessonContainerElem.addEventListener('click', handleLessonClick);
 //* display lesson
 let lesson = lessonContainerElem.getAttribute('data-lesson')
 let lessonUrl = `/api/lessons/${lesson}`;
-getLesson(lessonUrl, lessonContainerElem);
+getLesson(lessonUrl);
 
-function getLesson(url, elem) {
+function getLesson(url) {
   console.log(url);
   return fetch(url, {
     method: 'GET',
@@ -32,7 +32,8 @@ function getLesson(url, elem) {
   })
   .then(response => response.json())
   .then(results => {
-    elem.innerHTML = results;
+    lessonContainerElem.innerHTML = results.lesson;
+    renderResources(results.resources);
   })
   .catch(err=> console.log(err))
 }
@@ -61,4 +62,11 @@ function renderForm(lessonId, pos) {
   newForm.classList = 'new-resource';
   newForm.method = 'POST';
   resourceContainerElem.appendChild(newForm);
+}
+
+// render resources in sidebar
+function renderResources(resources) {
+  resources.forEach(resource => {
+    
+  })
 }

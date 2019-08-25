@@ -6,10 +6,6 @@ const Comment = Resource.discriminator(
   'Comment', 
   new Schema({
     note: String,
-    lesson: {
-      type: Schema.Types.ObjectId,
-      ref: 'Lesson'
-    },
     public: Boolean,
     content: String,
     childComment: {
