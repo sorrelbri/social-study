@@ -26,7 +26,7 @@ router.post('/lessons/:id/bookmarks/:pos', bookmarkCtrl.create);
 
 // Highlights
 
-// router.post('/lessons/:id/highlights/:pos', highlightCtrl.create);
+router.post('/lessons/:id/highlights/:pos', highlightCtrl.create);
 // router.delete('/highlights/:id', highlightCtrl.delete);
 
 module.exports = router;

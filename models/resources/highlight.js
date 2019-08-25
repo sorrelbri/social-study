@@ -9,4 +9,4 @@ const HighlightModel = ResourceModel.discriminator(
   )
 )
 
-module.exports = HighlightModel;
+module.exports = mongoose.model('Highlight');
