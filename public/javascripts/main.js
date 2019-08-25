@@ -21,16 +21,26 @@ const lessonContainerElem = document.getElementById('lesson-container');
 const resourceContainerElem = document.getElementById('resource-container');
 const menuContainerElem = document.getElementById('menu-container');
 const navigateContainerElem = document.getElementById('navigate-container');
+const navMenuEl = document.getElementById('nav-menu');
 
 //!----- event listeners -----*/ 
 lessonContainerElem.addEventListener('click', handleLessonClick);
 navigateContainerElem.addEventListener('click', handleNavigateClick);
 menuContainerElem.addEventListener('click', handleMenuClick);
 resourceContainerElem.addEventListener('click', handleResourceClick);
+navMenuEl.addEventListener('click', handleNavMenuClick);
 
 //!----- functions -----*/
 
 getMenu();
+
+function clearContainers() {
+  navigateContainerElem.innerHTML = '';
+  menuContainerElem.innerHTML = '';
+  lessonContainerElem.innerHTML = '';
+  resourceContainerElem.innerHTML = '';
+
+}
 
 //* display lesson
 function getLesson(url) {
@@ -38,8 +48,7 @@ function getLesson(url) {
   return fetch(url, GET_OPTIONS)
   .then(response => response.json())
   .then(results => {
-    navigateContainerElem.innerHTML = '';
-    menuContainerElem.innerHTML = '';
+    clearContainers();
     lessonContainerElem.innerHTML = results.lesson;
     renderResources(results.resources, results.user);
   })
@@ -51,8 +60,7 @@ function getMenu() {
   return fetch(MENU_URL, GET_OPTIONS)
   .then(response => response.json())
   .then(results => {
-    lessonContainerElem.innerHTML = '';
-    resourceContainerElem.innerHTML = '';
+    clearContainers();
     // results.lessons, results.resources, results.user
     renderMenu(results.resources, results.user);
     renderNavigate(results.lessons);
@@ -147,6 +155,10 @@ function handleMenuClick(evt) {
 
 function handleResourceClick(evt) {
 
+}
+
+function handleNavMenuClick(evt) {
+  getMenu();
 }
 
 // * render new resource form
