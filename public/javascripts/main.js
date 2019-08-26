@@ -169,6 +169,10 @@ function handleResourceClick(evt) {
   if (evt.target.tagName === 'BUTTON') {
     let url = evt.target.value; 
     return fetch(url, fetchOptions('POST', payload)) //! successful POST
+    .then(result => result.json())
+    .then(lesson => {
+      getLesson(`/api/lessons/${lesson}`)
+    })
   }
 }
 

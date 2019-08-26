@@ -18,7 +18,8 @@ function create(req, res, next) {
       req.user.bookmarks.push(newHighlight._id);
     })
     .then(() => {
-      res.status(200)
+      console.log(lesson._id)
+      res.status(201).json(lesson._id);
     })
   })
 }
