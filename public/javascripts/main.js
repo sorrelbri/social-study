@@ -3,14 +3,17 @@
 //TODO 
 // import * as getLesson from '/modules/fetch-lessons';
 const MENU_URL = '/api/menu';
-const GET_OPTIONS = {
-  method: 'GET',
-  mode: 'cors',
-  credentials: 'same-origin',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  redirect: 'manual',
+function fetchOptions(method, body) {
+  return {
+    method,
+    mode: 'cors',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'manual',
+    body: JSON.stringify(body)
+  }
 }
 
 //!----- app's state (variables) -----*/ 
@@ -39,17 +42,18 @@ function clearContainers() {
   menuContainerElem.innerHTML = '';
   lessonContainerElem.innerHTML = '';
   resourceContainerElem.innerHTML = '';
-
+  lessonContainerElem.removeAttribute('data-lesson');
 }
 
 //* display lesson
 function getLesson(url) {
   console.log(url);
-  return fetch(url, GET_OPTIONS)
+  return fetch(url, fetchOptions('GET'))
   .then(response => response.json())
   .then(results => {
     clearContainers();
-    lessonContainerElem.innerHTML = results.lesson;
+    lessonContainerElem.innerHTML = results.lesson.content;
+    lessonContainerElem.setAttribute('data-lesson', results.lesson._id)
     renderResources(results.resources, results.user);
   })
   .catch(err=> console.log(err))
@@ -57,7 +61,7 @@ function getLesson(url) {
 
 //* load menu and navigate
 function getMenu() {
-  return fetch(MENU_URL, GET_OPTIONS)
+  return fetch(MENU_URL, fetchOptions('GET'))
   .then(response => response.json())
   .then(results => {
     clearContainers();
@@ -97,9 +101,9 @@ function renderMenu(resources, user) {
 function templateMenuBookmark(bookmarks) {
   let list = ''
   bookmarks.forEach(bookmark => {
-    // TODO api/bookmarks/id for onclick
+    // TODO api/bookmarks/id for onclick + delete
     list += `
-    <li data-bookmark="${bookmark._id}"><span>${bookmark.note}</span><span>${comment.lesson.name}</span></span>
+    <li data-bookmark="${bookmark._id}"><span>${bookmark.note}</span><span>${bookmark.lesson.name}</span><span>X</span></li>
     `
   })
   return list;
@@ -111,7 +115,7 @@ function templateMenuComment(comments) {
   comments.forEach(comment => {
     // TODO api/comments/id for onclick
     list += `
-    <li data-comment="${comment._id}"><span>${comment.note}</span><span>${comment.lesson.name}</span></li>
+    <li data-comment="${comment._id}"><span>${comment.note}</span><span>${comment.lesson.name}</span><span>X</span></li>
     `;
   })
   return list;
@@ -139,6 +143,7 @@ function handleLessonClick(evt) {
   if (evt.target === lessonContainerElem) return;
   evt.target.style.backgroundColor = "yellowgreen";
   let pos = evt.target.getAttribute('data-position');
+  let lesson = lessonContainerElem.getAttribute('data-lesson');
   renderForm(lesson, pos);
 }
 
@@ -154,7 +159,17 @@ function handleMenuClick(evt) {
 }
 
 function handleResourceClick(evt) {
-
+  evt.preventDefault();
+  let form = evt.target.form;
+  let payload = {
+    note: form[0].value,
+    content: form[1].value,
+    public: !!form[2].checked
+  }
+  if (evt.target.tagName === 'BUTTON') {
+    let url = evt.target.value; 
+    return fetch(url, fetchOptions('POST', payload)) //! successful POST
+  }
 }
 
 function handleNavMenuClick(evt) {
@@ -170,12 +185,11 @@ function renderForm(lessonId, pos) {
   <input type="textarea" name="content" placeholder="Text for Comments">
   <input type="checkbox" id="public-comment" name="public" checked>
   <label for="public-comment">Make Comment Public</label>
-  <button formaction="/api/lessons/${lessonId}/bookmarks/${pos}">Bookmark</button>
-  <button formaction="/api/lessons/${lessonId}/comments/${pos}">Comment</button>
-  <button formaction="/api/lessons/${lessonId}/highlights/${pos}">Highlight</button>
+  <button value="/api/lessons/${lessonId}/bookmarks/${pos}">Bookmark</button>
+  <button value="/api/lessons/${lessonId}/comments/${pos}">Comment</button>
+  <button value="/api/lessons/${lessonId}/highlights/${pos}">Highlight</button>
   `;
-  newForm.classList = 'new-resource';
-  newForm.method = 'POST';
+  newForm.id = 'new-resource';
   resourceContainerElem.appendChild(newForm);
 }
 

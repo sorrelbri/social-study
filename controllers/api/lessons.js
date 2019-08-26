@@ -12,7 +12,7 @@ function show(req, res, next) {
     //TODO filter based on user + public
     Resource.find( { lesson: lesson._id })
     .then(resources => {
-      let payload = { lesson: lesson.content, resources, user: req.user };
+      let payload = { lesson, resources, user: req.user };
       return res.status(200).json(payload);
     })
   })
