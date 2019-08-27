@@ -75,6 +75,12 @@ function clearNavPane() {
   navPaneBookmarkEl.innerHTML = '';
 }
 
+function resetNavBar() {
+  navBarNotificationEl.classList = '';
+  navBarTreeEl.classList = '';
+  navBarBookmarkEl.classList = '';
+}
+
 function clearCommentContainer() {
   commentContainerEl.innerHTML = '';
 }
@@ -94,21 +100,27 @@ function clearContainers() {
 }
 
 function renderNavBarNotification() {
+  resetNavBar();
   navBarImg(navBarNotificationEl, 'notification', true);
   navBarImg(navBarTreeEl, 'tree', false);
   navBarImg(navBarBookmarkEl, 'bookmark', false);
+  navBarNotificationEl.classList = 'active';
 }
 
 function renderNavBarTree() {
+  resetNavBar();
   navBarImg(navBarNotificationEl, 'notification', false);
   navBarImg(navBarTreeEl, 'tree', true);
   navBarImg(navBarBookmarkEl, 'bookmark', false);
+  navBarTreeEl.classList = 'active';
 }
 
 function renderNavBarBookmark() {
+  resetNavBar();
   navBarImg(navBarNotificationEl, 'notification', false);
   navBarImg(navBarTreeEl, 'tree', false);
   navBarImg(navBarBookmarkEl, 'bookmark', true);
+  navBarBookmarkEl.classList = 'active';
 }
 
 function navBarImg(el, nav, active) {

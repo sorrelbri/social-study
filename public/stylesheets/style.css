@@ -7,14 +7,17 @@ body {
   display: grid;
   grid-template-columns: 465px 1fr;
   grid-template-rows: 75px 1fr;
+  grid-gap: 10px;
   grid-template-areas:
   "hdr hdr"
   "side content";
+  background: rgba(0, 0, 0, 0.5);
+  margin: 0 20px;
 }
 
 header {
   grid-area: hdr;
-  background-color: rgba(200, 100, 200, 0.1);
+  background-color: rgb(247, 235, 248);
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 475px 1fr 190px;
@@ -71,13 +74,26 @@ header #user-menu {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+  padding: 0 20px;
 }
 
 #nav-bar {
   height: 120px;
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-evenly;
   align-items: center;
+
+}
+
+#nav-bar div {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+#nav-bar .active {
+  background-color: rgb(247, 235, 248);
+  border-radius: 30px 30px 0 0;
 }
 
 #nav-bar img {
@@ -85,10 +101,16 @@ header #user-menu {
   margin: auto;
 }
 
-#nav-margin {
-  height: 5px;
-  margin: 10px 25px;
+#nav-bar #nav-margin {
+  background-color: rgb(247, 235, 248);
   width: 375px;
+  margin-top: -10px;
+}
+
+#nav-margin #nav-stripe {
+  height: 5px;
+  width: 100%;
+  padding: 0;
   background-color: black;
 }
 
@@ -96,6 +118,12 @@ header #user-menu {
   display: flex;
   flex-direction: column;
   margin: 0 30px;
+  background-color: rgb(247, 235, 248);
+  padding-top: 40px;
+}
+
+#nav-pane * {
+  padding: 0 20px;
 }
 
 #nav-pane h3 {
@@ -147,14 +175,14 @@ header #user-menu {
 
 content {
   grid-area: content;
-  background-color: rgba(200, 200, 70, 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
   margin-left: 30px;
   max-width: 100%;
 }
 
 aside {
   grid-area: side;
-  background-color: rgba(200, 70, 100, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
   margin-right: 30px;
 }
 
