@@ -152,7 +152,17 @@ function renderNotificationPane(notifications) {
 }
 
 function renderTreePane(trees) {
-  
+  let newUl = document.createElement('ul');
+  newUl.id = 'nav-pane-tree-list';
+  console.log(trees)
+  trees.forEach(node => {
+    if (node.content) {
+      newUl.innerHTML += `
+      <li class="lesson" data-lesson-ref="${node._id}">${node.name}</li>
+      `
+    }
+  })
+  navPaneTreeEl.appendChild(newUl);
 }
 
 function renderBookmarkPane(bookmarks) {
