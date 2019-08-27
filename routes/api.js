@@ -6,6 +6,7 @@ const commentCtrl = require('../controllers/api/comments');
 const bookmarkCtrl = require('../controllers/api/bookmarks');
 const highlightCtrl = require('../controllers/api/highlights');
 const menuCtrl = require('../controllers/api/menu');
+const navCtrl = require('../controllers/api/nav');
 
 //* Lessons
 // click from contents/navigate.ejs
@@ -35,7 +36,7 @@ router.get('/menu', menuCtrl.show);
 // get tree
 // get bookmark
 router.get('/notifications', navCtrl.showNotifications);
-router.get('/trees', navCtrl.showTree);
-router.get('/bookmarks', navCtrl.showTree);
+router.get('/trees', navCtrl.showTrees);
+router.get('/bookmarks', navCtrl.showBookmarks);
 
 module.exports = router;

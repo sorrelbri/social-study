@@ -125,17 +125,42 @@ function handleNavBarClick(evt) {
 function setNavToNotification() {
   clearNavPane();
   renderNavBarNotification();
+  fetchNavPane('notifications', renderNotificationPane);
 }
 
 function setNavToTree() {
   clearNavPane();
   renderNavBarTree();
+  fetchNavPane('trees', renderTreePane);
 }
 
 function setNavToBookmark() {
   clearNavPane();
   renderNavBarBookmark();
+  fetchNavPane('bookmarks', renderBookmarkPane);
 }
+
+function fetchNavPane(item, cb) {
+  let url = `/api/${item}`
+  return fetch(url, fetchOptions('GET'))
+  .then (response => response.json())
+  .then (results => cb(results));
+}
+
+function renderNotificationPane(notifications) {
+
+}
+
+function renderTreePane(trees) {
+  
+}
+
+function renderBookmarkPane(bookmarks) { 
+  bookmarks.forEach(bookmark => {
+    navPaneBookmarkEl.innerHTML += bookmark.note
+  }); 
+}
+
 
 //* display lesson
 function getLesson(url) {
