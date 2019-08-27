@@ -2,28 +2,65 @@
   box-sizing: border-box;
 }
 
+
 body {
   display: grid;
   grid-template-columns: 465px 1fr;
   grid-template-rows: 75px 1fr;
-  background-color: rgba(100, 150, 200, 0.5);
   grid-template-areas:
-    "hdr hdr"
-    "side content";
+  "hdr hdr"
+  "side content";
 }
 
 header {
   grid-area: hdr;
-  background-color: rgba(200, 100, 200, 0.7);
+  background-color: rgba(200, 100, 200, 0.1);
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 475px 1fr 190px;
   align-items: center;
 }
 
+#search {
+  padding: 45px;
+  justify-self: center;
+  width: 100%;
+}
+
+#search input {
+  background: url('/images/icons/search-glass.png') no-repeat left 7px center;
+  background-size: 20px 20px;
+  padding: 6px 15px 6px 40px;
+  margin: 3px; 
+  border-radius: 2px;
+  height: 40px;
+  width: 270px;
+}
+
+#search button {
+  width: 65px;
+  height: 40px;
+}
+
+#page-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+h1 {
+  margin-left: 80px;
+}
+
 header #user-menu {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+#user-menu img, #page-title img {
+  height: 40px;
+  margin: 10px;
 }
 
 #side-nav {
@@ -40,18 +77,6 @@ header #user-menu {
   align-items: center;
 }
 
-#nav-bar #nav-notification {
-  background-color: rgb(200, 30, 30);
-}
-
-#nav-bar #nav-tree {
-  background-color: rgb(30, 150, 30);
-}
-
-#nav-bar #nav-bookmark {
-  background-color: rgb(30, 30, 200);
-}
-
 #nav-bar img {
   height: 50px;
   margin: auto;
@@ -62,6 +87,26 @@ header #user-menu {
   margin: 10px 25px;
   width: 375px;
   background-color: black;
+}
+
+#nav-pane {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30px;
+}
+
+#nav-pane h3 {
+  margin-bottom: 30px;
+}
+
+#nav-pane-bookmark li {
+	margin: 0;
+	padding: 10px 0 10px 30px;
+	list-style: none;
+	background-image: url('/images/icons/navigate-bookmark.png');
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 20px;
 }
 
 content {

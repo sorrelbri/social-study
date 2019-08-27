@@ -155,10 +155,20 @@ function renderTreePane(trees) {
   
 }
 
-function renderBookmarkPane(bookmarks) { 
+function renderBookmarkPane(bookmarks) {
+  navPaneBookmarkEl.innerHTML = `
+  <h3>Bookmarked Pages</h3>
+  <ul>
+  </ul>
+  `
   bookmarks.forEach(bookmark => {
-    navPaneBookmarkEl.innerHTML += bookmark.note
-  }); 
+    let newLi = document.createElement('li');
+    newLi.innerHTML = bookmark.note;
+    newLi.setAttribute('data-lesson', bookmark.lesson);
+    navPaneBookmarkEl
+    .getElementsByTagName('ul')[0]
+    .appendChild(newLi);
+  });
 }
 
 
