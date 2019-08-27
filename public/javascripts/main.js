@@ -1,7 +1,7 @@
 //! ----- constants -----*/ 
 
 //TODO 
-// import * as getLesson from '/modules/fetch-lessons';
+// let getLesson = import('/modules/fetch-lessons').then(imported => console.log(imported))
 const MENU_URL = '/api/menu';
 function fetchOptions(method, body) {
   return {
@@ -59,6 +59,7 @@ function getLesson(url) {
   .catch(err=> console.log(err))
 }
 
+// ! refactor for bar/pane
 //* load menu and navigate
 function getMenu() {
   return fetch(MENU_URL, fetchOptions('GET'))
@@ -109,6 +110,7 @@ function templateMenuBookmark(bookmarks) {
   return list;
 }
 
+// TODO set comment top equal to position.offsetTop
 // * create Menu Comment list from template
 function templateMenuComment(comments) {
   let list = '';
@@ -121,6 +123,7 @@ function templateMenuComment(comments) {
   return list;
 }
 
+// ! no more navigate elem
 // * display lesson navigation pane
 function renderNavigate(lessons) {
   // list for tree each with list for lessons
@@ -147,6 +150,7 @@ function handleLessonClick(evt) {
   renderForm(lesson, pos);
 }
 
+// ! no more Navigate elem
 function handleNavigateClick(evt) {
   evt.stopPropagation();
   let lesson = evt.target.getAttribute('data-lesson');

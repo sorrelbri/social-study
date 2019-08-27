@@ -1,0 +1,94 @@
+<!-- Main page once logged in -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible">
+  <!-- <link rel="stylesheet" href="/stylesheets/reset.css" /> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <script defer src="/javascripts/main.js"></script>
+  <title></title>
+</head>
+<body>
+  <header>
+    <div id="search">
+    </div>
+    <div id="page-title">
+    </div>
+    <div id="user-menu">
+      <div id="feed"></div>
+      <div id="user"></div>
+    </div>
+  </header>
+  <aside>
+    <nav id="side-nav">
+      <div id="nav-bar">
+        <div id="nav-notification"><!-- generated content --></div>
+        <div id="nav-tree"><!-- generated content --></div>
+        <div id="nav-bookmark"><!-- generated content --></div>
+      </div>
+      <div id="nav-pane">
+        <div id="nav-pane-notification"><!-- generated content --></div>
+        <div id="nav-pane-tree"><ul id="nav-pane-tree-list">
+          <!-- generated content -->
+        </ul></div>
+        <div id="nav-pane-bookmark"><!-- generated content --></div>
+      </div>
+      <div id="comment-container">
+        <!-- generated content -->
+      </div>
+    </nav>
+  </aside>
+  <content>
+    <div id="feed-container">
+      <!-- generated content -->
+    </div>
+    <div id="search-container">
+      <!-- generated content -->
+    </div>
+    <div id="lesson-container">
+      <!-- generated content -->
+    </div>
+  </content>
+</body>
+</html>
+
+<!-- * content template for nav-pane-notification -->
+<div>
+  <span class="notification-user"></span>
+  <span class="notification-action"></span>
+  <span class="notification-lesson"></span>
+</div>
+
+<!-- * content template for nav-pane-tree-->
+<!-- tree -->
+<li><span class="tree-item"></span>
+  <ul class="nested">
+    <!-- blobs/trees here-->
+  </ul>
+</li>
+<!-- blob -->
+<li data-lesson-ref=""></li>
+
+<!-- * content template for nav-pane-bookmark -->
+<div class="nav-pane-bookmark">
+  <span class="nav-pane-bookmark-note" data-bookmar-ref=""></span>
+  <span class="nav-pane-bookmark-lesson"></span>
+</div>
+
+<!-- * content template for comment -->
+<div class="comment">
+  <div class="comment-user">
+    <div class="comment-user-avatar"></div>
+    <div class="comment-user-name"></div>
+  </div>
+  <div class="comment-content">
+  </div>
+  <div class="comment-more">
+    <!-- thread/reply/edit -->
+  </div>
+</div>
+
+<!-- * content template for feed-item -->
