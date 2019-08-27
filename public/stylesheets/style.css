@@ -4,18 +4,35 @@
 
 body {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 64px 100%;
-  grid-gap: 30px;
+  grid-template-columns: 465px 1fr;
+  grid-template-rows: 75px 100%;
   background-color: rgba(100, 150, 200, 0.5);
   grid-template-areas:
     "hdr hdr"
-    "content side";
+    "side content";
 }
 
 header {
   grid-area: hdr;
   background-color: rgba(200, 100, 200, 0.7);
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 475px 1fr 190px;
+  align-items: center;
+}
+
+header #user-menu {
+  display: flex;
+  justify-content: space-around;
+}
+
+#nav-bar {
+  height: 120px;
+  display: flex;
+}
+
+#nav-bar i {
+  height: 150%;
 }
 
 content {
