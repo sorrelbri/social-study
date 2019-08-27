@@ -30,4 +30,12 @@ router.post('/lessons/:id/highlights/:pos', highlightCtrl.create);
 //* Menu
 router.get('/menu', menuCtrl.show);
 
+//* Nav
+// get notification
+// get tree
+// get bookmark
+router.get('/notifications', navCtrl.showNotifications);
+router.get('/trees', navCtrl.showTree);
+router.get('/bookmarks', navCtrl.showTree);
+
 module.exports = router;

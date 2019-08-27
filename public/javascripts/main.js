@@ -16,33 +16,125 @@ function fetchOptions(method, body) {
   }
 }
 
+const navImg = {
+  notification: { 
+    true: '/images/icons/notification-active.png',
+    false: '/images/icons/notification-static.png'
+  },
+  tree: { 
+    true: '/images/icons/tree-active.png',
+    false: '/images/icons/tree-static.png'
+  },
+  bookmark: { 
+    true: '/images/icons/bookmark-active.png',
+    false: '/images/icons/bookmark-static.png'
+  },
+}
+
 //!----- app's state (variables) -----*/ 
 
 //!----- cached element references -----*/ 
-const contentElem = document.querySelector('content');
-const lessonContainerElem = document.getElementById('lesson-container');
-const resourceContainerElem = document.getElementById('resource-container');
-const menuContainerElem = document.getElementById('menu-container');
-const navigateContainerElem = document.getElementById('navigate-container');
-const navMenuEl = document.getElementById('nav-menu');
+const contentEl = document.querySelector('content');
+// const menuContainerEl = document.getElementById('menu-container');
+const commentContainerEl = document.getElementById('comment-container');
+const navBarEl = document.getElementById('nav-bar');
+const navBarNotificationEl = document.getElementById('nav-notification');
+const navBarTreeEl = document.getElementById('nav-tree');
+const navBarBookmarkEl = document.getElementById('nav-bookmark');
+const navPaneNotificationEl = document.getElementById('nav-pane-notification');
+const navPaneTreeEl = document.getElementById('nav-pane-tree');
+const navPaneBookmarkEl = document.getElementById('nav-pane-bookmark');
+const feedContainerEl = document.getElementById('feed-container');
+const searchContainerEl = document.getElementById('search-container');
+const lessonContainerEl = document.getElementById('lesson-container');
 
 //!----- event listeners -----*/ 
-lessonContainerElem.addEventListener('click', handleLessonClick);
-navigateContainerElem.addEventListener('click', handleNavigateClick);
-menuContainerElem.addEventListener('click', handleMenuClick);
-resourceContainerElem.addEventListener('click', handleResourceClick);
-navMenuEl.addEventListener('click', handleNavMenuClick);
+// lessonContainerEl.addEventListener('click', handleLessonClick);
+// navigateContainerElem.addEventListener('click', handleNavigateClick);
+// menuContainerEl.addEventListener('click', handleMenuClick);
+// resourceContainerElem.addEventListener('click', handleResourceClick);
+// navMenuEl.addEventListener('click', handleNavMenuClick);
+navBarEl.addEventListener('click', handleNavBarClick);
 
 //!----- functions -----*/
 
-getMenu();
+// getMenu();
+initAuthorizedUser();
+
+function initAuthorizedUser() {
+  clearNavPane();
+  clearCommentContainer();
+  clearContentContainers();
+  setNavToNotification();
+  // getFeed
+}
+
+function clearNavPane() {
+  navPaneNotificationEl.innerHTML = '';
+  navPaneTreeEl.innerHTML = '';
+  navPaneBookmarkEl.innerHTML = '';
+}
+
+function clearCommentContainer() {
+  commentContainerEl.innerHTML = '';
+}
+
+function clearContentContainers() {
+  feedContainerEl.innerHTML = '';
+  searchContainerEl.innerHTML = '';
+  lessonContainerEl.innerHTML = '';
+}
 
 function clearContainers() {
   navigateContainerElem.innerHTML = '';
-  menuContainerElem.innerHTML = '';
-  lessonContainerElem.innerHTML = '';
+  menuContainerEl.innerHTML = '';
+  lessonContainerEl.innerHTML = '';
   resourceContainerElem.innerHTML = '';
-  lessonContainerElem.removeAttribute('data-lesson');
+  lessonContainerEl.removeAttribute('data-lesson');
+}
+
+function renderNavBarNotification() {
+  navBarImg(navBarNotificationEl, 'notification', true);
+  navBarImg(navBarTreeEl, 'tree', false);
+  navBarImg(navBarBookmarkEl, 'bookmark', false);
+}
+
+function renderNavBarTree() {
+  navBarImg(navBarNotificationEl, 'notification', false);
+  navBarImg(navBarTreeEl, 'tree', true);
+  navBarImg(navBarBookmarkEl, 'bookmark', false);
+}
+
+function renderNavBarBookmark() {
+  navBarImg(navBarNotificationEl, 'notification', false);
+  navBarImg(navBarTreeEl, 'tree', false);
+  navBarImg(navBarBookmarkEl, 'bookmark', true);
+}
+
+function navBarImg(el, nav, active) {
+  el.getElementsByTagName('img')[0].setAttribute('src', navImg[nav][active]);
+}
+
+function handleNavBarClick(evt) {
+  let target = evt.target.parentElement.id;
+  if (target === 'nav-notification') setNavToNotification();
+  if (target === 'nav-tree') setNavToTree();
+  if (target === 'nav-bookmark') setNavToBookmark();
+}
+
+function setNavToNotification() {
+  clearNavPane();
+  renderNavBarNotification();
+}
+
+function setNavToTree() {
+  clearNavPane();
+  renderNavBarTree();
+}
+
+function setNavToBookmark() {
+  clearNavPane();
+  renderNavBarBookmark();
 }
 
 //* display lesson
@@ -52,8 +144,8 @@ function getLesson(url) {
   .then(response => response.json())
   .then(results => {
     clearContainers();
-    lessonContainerElem.innerHTML = results.lesson.content;
-    lessonContainerElem.setAttribute('data-lesson', results.lesson._id)
+    lessonContainerEl.innerHTML = results.lesson.content;
+    lessonContainerEl.setAttribute('data-lesson', results.lesson._id)
     renderResources(results.resources, results.user);
   })
   .catch(err=> console.log(err))
@@ -95,7 +187,7 @@ function renderMenu(resources, user) {
     </ul>
   </div>
   `
-  menuContainerElem.appendChild(newMenu);
+  menuContainerEl.appendChild(newMenu);
 }
 
 // * create Menu Bookmark list from template
@@ -143,10 +235,10 @@ function renderNavigate(lessons) {
 function handleLessonClick(evt) {
   // TODO toggle menu and styling
   evt.stopPropagation();
-  if (evt.target === lessonContainerElem) return;
+  if (evt.target === lessonContainerEl) return;
   evt.target.style.backgroundColor = "yellowgreen";
   let pos = evt.target.getAttribute('data-position');
-  let lesson = lessonContainerElem.getAttribute('data-lesson');
+  let lesson = lessonContainerEl.getAttribute('data-lesson');
   renderForm(lesson, pos);
 }
 

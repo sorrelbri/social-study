@@ -5,7 +5,7 @@
 body {
   display: grid;
   grid-template-columns: 465px 1fr;
-  grid-template-rows: 75px 100%;
+  grid-template-rows: 75px 1fr;
   background-color: rgba(100, 150, 200, 0.5);
   grid-template-areas:
     "hdr hdr"
@@ -26,13 +26,42 @@ header #user-menu {
   justify-content: space-around;
 }
 
+#side-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
 #nav-bar {
   height: 120px;
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-#nav-bar i {
-  height: 150%;
+#nav-bar #nav-notification {
+  background-color: rgb(200, 30, 30);
+}
+
+#nav-bar #nav-tree {
+  background-color: rgb(30, 150, 30);
+}
+
+#nav-bar #nav-bookmark {
+  background-color: rgb(30, 30, 200);
+}
+
+#nav-bar img {
+  height: 50px;
+  margin: auto;
+}
+
+#nav-margin {
+  height: 5px;
+  margin: 10px 25px;
+  width: 375px;
+  background-color: black;
 }
 
 content {
