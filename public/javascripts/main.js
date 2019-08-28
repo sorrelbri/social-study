@@ -57,6 +57,7 @@ const lessonContainerEl = document.getElementById('lesson-container');
 navBarEl.addEventListener('click', handleNavBarClick);
 navPaneTreeEl.addEventListener('click', handleNavPaneTreeClick);
 document.getElementById('nav-margin').addEventListener('click', handleNavMarginClick);
+commentContainerEl.addEventListener('mouseover', handleCommentHover);
 
 //!----- functions -----*/
 
@@ -229,7 +230,7 @@ function renderComments(results) {
     let commentEl = document.createElement('div');
     commentEl.classList = 'comment';
     commentEl.setAttribute('data-comment', comment._id);
-    commentEl.setAttribute('data-position', comment.position);
+    commentEl.setAttribute('data-reference', comment.position);
     commentEl.innerHTML = `
     <div class="comment-side">
       <div class="comment-side-avatar"><img src="${comment.user.avatar || ''}"></div>
@@ -256,6 +257,12 @@ function renderComments(results) {
     .offsetTop}px`;
     commentContainerEl.appendChild(commentEl);
   })
+}
+
+function handleCommentHover(evt) {
+  let position = evt.target.closest('div.comment').getAttribute('data-reference');
+  console.log(position);
+  document.querySelector(`#lesson-container [data-position="${position}"]`).style.backgroundColor = 'turquoise';
 }
 
 function renderBookmarks(results) {
