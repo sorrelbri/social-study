@@ -228,15 +228,19 @@ function renderComments(results) {
   comments.forEach(comment => {
     let commentEl = document.createElement('div');
     commentEl.classList = 'comment';
+    commentEl.setAttribute('data-comment', comment._id);
+    commentEl.setAttribute('data-position', comment.position);
     commentEl.innerHTML = `
     <div class="comment-side">
       <div class="comment-side-avatar"><img src="${comment.user.avatar || ''}"></div>
-      <div class="comment-side-time"><span>${comment.createdAt}</span></div>
+      <div class="comment-side-time">
+        <span>${comment.createdAt.slice(5,10)}-${comment.createdAt.slice(0, 4)}</span>
+      </div>
     </div>
     <div class="comment-main">
       <div class="comment-main-control">
-        ${results.user.id === comment.user.id ? '<img src="/images/icons/delete-comment.png">' : ''}
-        <img src="/images/icons/hide.png">
+        ${results.user.id === comment.user.id ? '<img class="comment-delete" src="/images/icons/delete-comment.png">' : ''}
+        <img class="comment-hide" src="/images/icons/hide.png">
       </div>
       <div class="comment-main-content">
         <h5>${comment.user.name} Commented:</h5>
@@ -245,7 +249,7 @@ function renderComments(results) {
       <div class="comment-main-thread"></div>
     </div>
     <div class="comment-more">
-      <!-- thread/reply/edit -->
+      <img class="comment-thread" src="/images/icons/comment-thread.png">
     </div>
     `
     commentEl.style.top = `${document.querySelector(`[data-position="${comment.position}"]`)

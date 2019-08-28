@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 const TreeSchema = new Schema({
   name: String,
   url: String,
-  childTrees: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Tree'
-  }],
+  // childTrees: [{
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Tree'
+  // }],
   childLessons: [{
     type: Schema.Types.ObjectId,
     ref: 'Lesson'
@@ -15,5 +15,7 @@ const TreeSchema = new Schema({
 },
   { timestamps: true }
 )
+
+TreeSchema.childTrees = [TreeSchema];
 
 module.exports = mongoose.model('Tree', TreeSchema)
