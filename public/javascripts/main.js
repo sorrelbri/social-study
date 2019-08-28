@@ -1,7 +1,6 @@
 //! ----- constants -----*/ 
 
 //TODO 
-// let getLesson = import('/modules/fetch-lessons').then(imported => console.log(imported))
 const MENU_URL = '/api/menu';
 function fetchOptions(method, body) {
   return {
@@ -47,6 +46,7 @@ const navPaneBookmarkEl = document.getElementById('nav-pane-bookmark');
 const feedContainerEl = document.getElementById('feed-container');
 const searchContainerEl = document.getElementById('search-container');
 const lessonContainerEl = document.getElementById('lesson-container');
+const optionsContainerEl = document.getElementById('options-container');
 
 //!----- event listeners -----*/ 
 // lessonContainerEl.addEventListener('click', handleLessonClick);
@@ -58,6 +58,8 @@ navBarEl.addEventListener('click', handleNavBarClick);
 navPaneTreeEl.addEventListener('click', handleNavPaneTreeClick);
 document.getElementById('nav-margin').addEventListener('click', handleNavMarginClick);
 commentContainerEl.addEventListener('mouseover', handleCommentHover);
+lessonContainerEl.addEventListener('mouseover', handleLessonHover);
+optionsContainerEl.addEventListener('click', handleOptionsClick);
 
 //!----- functions -----*/
 
@@ -213,9 +215,18 @@ function handleNavPaneTreeClick(evt) {
 }
 
 function renderLesson(results) {
-  console.log(results);
   lessonContainerEl.innerHTML = results.lesson.content;
+  optionsContainerEl.innerHTML = '';
   renderResources(results);
+  let newCommentEl = renderNewCommentEl();
+  optionsContainerEl.appendChild(newCommentEl)
+}
+
+function renderNewCommentEl() {
+  let newCommentEl = document.createElement('div');
+  newCommentEl.id = 'comment-add'
+  newCommentEl.innerHTML = `<img src='/images/icons/add-comment.png'>`
+  return newCommentEl;
 }
 
 function renderResources(results) {
@@ -260,9 +271,32 @@ function renderComments(results) {
 }
 
 function handleCommentHover(evt) {
+  clearLessonStyles();
   let position = evt.target.closest('div.comment').getAttribute('data-reference');
-  console.log(position);
   document.querySelector(`#lesson-container [data-position="${position}"]`).style.backgroundColor = 'turquoise';
+}
+
+function clearLessonStyles() {
+  lessonContainerEl.childNodes.forEach(node => {
+    console.log(node)
+    if (node.style) node.style.backgroundColor = 'none';
+  });
+}
+
+function handleOptionsClick(evt) {
+  if (evt.target.closest('div#add-comment')) {
+    optionsContainerEl.innerHTML = '';
+    let newCommentForm = renderNewCommentFormEl();
+    optionsContainerEl.appendChild(optionsContainerEl);
+  }
+}
+
+function renderNewCommentFormEl() {
+
+}
+
+function handleLessonHover(evt) {
+  // evt.target
 }
 
 function renderBookmarks(results) {

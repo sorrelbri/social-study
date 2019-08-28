@@ -1,4 +1,4 @@
-const request = require('request');
+const fetch = require('node-fetch');
 const showdown = require('showdown');
 const Lesson = require('../models/lesson');
 const Tree = require('../models/tree');
@@ -28,21 +28,24 @@ async function createNode(url, nodeType, nodeName) {
     }
   };
   let cb = nodeType === 'tree' ? createTree : createLesson;
-  results = await request(options, cb)
-  let newNode = results.newNode;
-  let body = results.body;
-  newNode.name = nodeName;
-  if (body.tree) {
-    let promises = body.tree.map(node => createNode(node.url, node.type, node.path))
-    Promise.all(promises)
-    .then(newChildren => {
-      newNode.childTrees = newChildren.filter(child => child.tree).map(child => child._id);
-      newNode.childLessons = newChildren.filter(child => child.content).map(child => child._id);
-      newNode.save()
-    })
-  }
-  newNode.save()
-  .then(newNode => newNode)
+  fetch(options).then(results => {
+    console.log(results)
+    cb(results)
+    // let newNode = results.newNode;
+    // let body = results.body;
+    // newNode.name = nodeName;
+    // if (body.tree) {
+    //   let promises = body.tree.map(node => createNode(node.url, node.type, node.path))
+    //   Promise.all(promises)
+    //   .then(newChildren => {
+    //     newNode.childTrees = newChildren.filter(child => child.tree).map(child => child._id);
+    //     newNode.childLessons = newChildren.filter(child => child.content).map(child => child._id);
+    //     newNode.save()
+    //   })
+    // }
+  })
+  // newNode.save()
+  // .then(newNode => newNode)
 }
 
 

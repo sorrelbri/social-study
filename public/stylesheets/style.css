@@ -275,5 +275,27 @@ nav div.flex-item.flex-end {
 }
 
 .comment .comment-more img {
-  
+
+}
+
+#options-container {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#options-container div {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(55, 54, 82);
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#options-container div img {
+  width: 100%;
 }
