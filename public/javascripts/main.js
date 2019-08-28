@@ -212,8 +212,48 @@ function handleNavPaneTreeClick(evt) {
 }
 
 function renderLesson(results) {
-  console.log(results)
+  console.log(results);
   lessonContainerEl.innerHTML = results.lesson.content;
+  renderResources(results);
+}
+
+function renderResources(results) {
+  renderComments(results);
+  renderBookmarks(results);
+  renderHighlights(results);
+}
+
+function renderComments(results) {
+  let comments = results.resources.filter(resource => resource.resource === 'Comment');
+  comments.forEach(comment => {
+    let commentEl = document.createElement('div');
+    commentEl.classList = 'comment';
+    commentEl.innerHTML = `
+    <div class="comment-side">
+      <div class="comment-side-avatar"><img src="${comment.user}"></div>
+      <div class="comment-side-time"><span>${comment.createdAt}</span></div>
+    </div>
+    <div class="comment-main">
+      <div class="comment-main-control"><img><img></div>
+      <div class="comment-main-content"><span>${comment.content}</span></div>
+      <div class="comment-main-thread"></div>
+    </div>
+    <div class="comment-more">
+      <!-- thread/reply/edit -->
+    </div>
+    `
+    commentContainerEl.appendChild(commentEl);
+    commentEl.top = document.querySelector(`[data-position="${comment.position}"]`)
+    .offsetTop;
+  })
+}
+
+function renderBookmarks(results) {
+
+}
+
+function renderHighlights(results) {
+
 }
 
 //* display lesson
@@ -373,25 +413,25 @@ function renderForm(lessonId, pos) {
 }
 
 // * render resources in sidebar
-function renderResources(resources, user) {
-  console.log(resources);
-  console.log(user);
-  resources.forEach(resource => {
-    if (resource.resource === 'Comment') {
-      let newCommentElem = document.createElement('div');
-      newCommentElem.classList = 'comment';
-      newCommentElem.innerHTML = templateComment(resource, user);
-      resourceContainerElem.appendChild(newCommentElem);
-      document.querySelector(`[data-position="${resource.position}"]`).classList += "comment "
-    }
-    if (resource.resource === 'Bookmark') {
-      document.querySelector(`[data-position="${resource.position}"]`).classList += "bookmark "
-    }
-    if (resource.resource === 'Highlight') {
-      document.querySelector(`[data-position="${resource.position}"]`).classList += "highlight "
-    }
-  })
-}
+// function renderResources(resources, user) {
+//   console.log(resources);
+//   console.log(user);
+//   resources.forEach(resource => {
+//     if (resource.resource === 'Comment') {
+//       let newCommentElem = document.createElement('div');
+//       newCommentElem.classList = 'comment';
+//       newCommentElem.innerHTML = templateComment(resource, user);
+//       resourceContainerElem.appendChild(newCommentElem);
+//       document.querySelector(`[data-position="${resource.position}"]`).classList += "comment "
+//     }
+//     if (resource.resource === 'Bookmark') {
+//       document.querySelector(`[data-position="${resource.position}"]`).classList += "bookmark "
+//     }
+//     if (resource.resource === 'Highlight') {
+//       document.querySelector(`[data-position="${resource.position}"]`).classList += "highlight "
+//     }
+//   })
+// }
 
 // * create Comment from template
 function templateComment(comment, user) {
