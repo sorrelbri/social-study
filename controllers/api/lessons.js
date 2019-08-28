@@ -10,7 +10,7 @@ function show(req, res, next) {
   Lesson.findById(req.params.id)
   .then(lesson => {
     //TODO filter based on user + public
-    Resource.find( { lesson: lesson._id })
+    Resource.find( { $and: [ { lesson: lesson._id }, { $or: [ { user: req.user.id }, { public: true } ] } ] } )
     .then(resources => {
       let payload = { lesson, resources, user: req.user };
       return res.status(200).json(payload);

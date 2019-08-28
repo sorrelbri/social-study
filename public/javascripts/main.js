@@ -55,6 +55,8 @@ const lessonContainerEl = document.getElementById('lesson-container');
 // resourceContainerElem.addEventListener('click', handleResourceClick);
 // navMenuEl.addEventListener('click', handleNavMenuClick);
 navBarEl.addEventListener('click', handleNavBarClick);
+navPaneTreeEl.addEventListener('click', handleNavPaneTreeClick);
+document.getElementById('nav-margin').addEventListener('click', handleNavMarginClick);
 
 //!----- functions -----*/
 
@@ -134,6 +136,11 @@ function handleNavBarClick(evt) {
   if (target === 'nav-bookmark') setNavToBookmark();
 }
 
+function handleNavMarginClick(evt) {
+  clearNavPane();
+  resetNavBar();
+}
+
 function setNavToNotification() {
   clearNavPane();
   renderNavBarNotification();
@@ -157,6 +164,12 @@ function fetchNavPane(item, cb) {
   return fetch(url, fetchOptions('GET'))
   .then (response => response.json())
   .then (results => cb(results));
+}
+
+function fetchLesson(url, cb) {
+  return fetch(url, fetchOptions('GET'))
+  .then (response => response.json())
+  .then (results => cb(results))
 }
 
 function renderNotificationPane(notifications) {
@@ -193,6 +206,15 @@ function renderBookmarkPane(bookmarks) {
   });
 }
 
+function handleNavPaneTreeClick(evt) {
+  let url = `/api/lessons/${evt.target.getAttribute('data-lesson-ref')}`;
+  fetchLesson(url, renderLesson);
+}
+
+function renderLesson(results) {
+  console.log(results)
+  lessonContainerEl.innerHTML = results.lesson.content;
+}
 
 //* display lesson
 function getLesson(url) {

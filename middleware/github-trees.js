@@ -1,6 +1,7 @@
 const request = require('request');
 const showdown = require('showdown');
 const Lesson = require('../models/lesson');
+const Tree = require('../models/tree');
 const atob = require('atob');
 const btoa = require('btoa');
 
@@ -45,4 +46,37 @@ function parseLesson(body) {
     content: body.content,
     name: body.name
   });
+}
+
+
+// request master tree
+// create model from master tree
+// store urls, names, and types for child nodes
+// Promise.all() child node request
+
+
+function create(path, nodeName, node) {
+  let options = {
+    url: path,
+    headers: {
+      'User-Agent': 'sorrelbri',
+      'Authorization': `token ${token}`
+    }
+  }
+  request(options, (err, response, body) => {
+    body = JSON.parse(body);
+    // tree create
+    let newNode = node === 'tree' ? createTree(body, nodeName) : createLesson(body, nodeName)
+    if (body.tree.find(node => node.type === 'tree')) {
+      
+    }
+  });
+}
+
+function createTree(body, name) {
+  Tree.create({
+    name,
+    url: body.url
+  })
+  .then(newTree => newTree);
 }
