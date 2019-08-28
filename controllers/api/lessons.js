@@ -11,6 +11,7 @@ function show(req, res, next) {
   .then(lesson => {
     //TODO filter based on user + public
     Resource.find( { $and: [ { lesson: lesson._id }, { $or: [ { user: req.user.id }, { public: true } ] } ] } )
+    .populate('user')
     .then(resources => {
       let payload = { lesson, resources, user: req.user };
       return res.status(200).json(payload);

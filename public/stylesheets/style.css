@@ -221,15 +221,37 @@ nav div.flex-item.flex-end {
   width: 435px;
   position: absolute;
   z-index: -1;
+  background-color: rgb(247, 235, 248);
+  border-radius: 30px;
 }
 
 .comment .comment-side {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  width: 100px;
+}
+
+.comment .comment-side-avatar {
+  width: 75px;
+  margin: 12px 0;
+}
+.comment .comment-side-avatar img {
+  width: 100%;
+  border-radius: 50%;
 }
 
 .comment .comment-main {
   display: flex;
   flex-flow: column nowrap;
+  width: 335px;
+}
+
+.comment .comment-main-control {
+  align-self: flex-end;
+}
+
+.comment .comment-main-control img {
+  width: 30px;
+  margin: 10px 15px;
 }

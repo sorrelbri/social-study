@@ -230,12 +230,18 @@ function renderComments(results) {
     commentEl.classList = 'comment';
     commentEl.innerHTML = `
     <div class="comment-side">
-      <div class="comment-side-avatar"><img src="${comment.user}"></div>
+      <div class="comment-side-avatar"><img src="${comment.user.avatar || ''}"></div>
       <div class="comment-side-time"><span>${comment.createdAt}</span></div>
     </div>
     <div class="comment-main">
-      <div class="comment-main-control"><img><img></div>
-      <div class="comment-main-content"><span>${comment.content}</span></div>
+      <div class="comment-main-control">
+        ${results.user.id === comment.user.id ? '<img src="/images/icons/delete-comment.png">' : ''}
+        <img src="/images/icons/hide.png">
+      </div>
+      <div class="comment-main-content">
+        <h5>${comment.user.name} Commented:</h5>
+        <span>${comment.content}</span>
+      </div>
       <div class="comment-main-thread"></div>
     </div>
     <div class="comment-more">
