@@ -242,9 +242,9 @@ function renderComments(results) {
       <!-- thread/reply/edit -->
     </div>
     `
+    commentEl.style.top = `${document.querySelector(`[data-position="${comment.position}"]`)
+    .offsetTop}px`;
     commentContainerEl.appendChild(commentEl);
-    commentEl.top = document.querySelector(`[data-position="${comment.position}"]`)
-    .offsetTop;
   })
 }
 

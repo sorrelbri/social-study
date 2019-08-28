@@ -219,6 +219,8 @@ nav div.flex-item.flex-end {
   display: flex;
   flex-flow: row wrap;
   width: 435px;
+  position: absolute;
+  z-index: -1;
 }
 
 .comment .comment-side {
