@@ -219,14 +219,17 @@ nav div.flex-item.flex-end {
   margin-right: auto;
 }
 
-#comment-container .comment {
+#comment-container .comment, #options-container .comment {
   display: flex;
   flex-flow: row wrap;
   width: 435px;
-  position: absolute;
   z-index: 1;
   background-color: rgba(247, 235, 248, 0.8);
   border-radius: 30px;
+}
+
+#comment-container .comment {
+  position: absolute;
 }
 
 .comment .comment-side {
@@ -272,10 +275,12 @@ nav div.flex-item.flex-end {
 .comment .comment-more {
   display: flex;
   flex-flow: column nowrap;
+  width: 100%;
+  align-items: center;
 }
 
 .comment .comment-more img {
-
+  align-self: flex-end;
 }
 
 #options-container {
@@ -285,7 +290,7 @@ nav div.flex-item.flex-end {
   justify-content: flex-end;
 }
 
-#options-container div {
+#options-container #comment-add {
   width: 100px;
   height: 100px;
   background-color: rgb(55, 54, 82);

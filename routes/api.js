@@ -15,7 +15,7 @@ router.get('/lessons/:id', lessonCtrl.show);
 //* Comments
 // router.get('/comments/:id', commentCtrl.show);
 // router.put('/comments/:id', commentCtrl.edit);
-// router.delete('/comments/:id', commentCtrl.delete);
+router.delete('/comments/:id', commentCtrl.delete);
 router.post('/lessons/:id/comments/:pos', commentCtrl.create);
 // router.post('/comments/:id/thread', commentCtrl.thread);
 

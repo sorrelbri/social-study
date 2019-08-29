@@ -57,9 +57,10 @@ const optionsContainerEl = document.getElementById('options-container');
 navBarEl.addEventListener('click', handleNavBarClick);
 navPaneTreeEl.addEventListener('click', handleNavPaneTreeClick);
 document.getElementById('nav-margin').addEventListener('click', handleNavMarginClick);
-commentContainerEl.addEventListener('mouseover', handleCommentHover);
+// commentContainerEl.addEventListener('mouseover', handleCommentHover);
 lessonContainerEl.addEventListener('mouseover', handleLessonHover);
 optionsContainerEl.addEventListener('click', handleOptionsClick);
+commentContainerEl.addEventListener('click', handleCommentClick);
 
 //!----- functions -----*/
 
@@ -147,7 +148,7 @@ function handleNavMarginClick(evt) {
 function setNavToNotification() {
   clearNavPane();
   renderNavBarNotification();
-  fetchNavPane('notifications', renderNotificationPane);
+  // fetchNavPane('notifications', renderNotificationPane);
 }
 
 function setNavToTree() {
@@ -216,6 +217,7 @@ function handleNavPaneTreeClick(evt) {
 
 function renderLesson(results) {
   lessonContainerEl.innerHTML = results.lesson.content;
+  lessonContainerEl.setAttribute('data-lesson', results.lesson.id)
   optionsContainerEl.innerHTML = '';
   renderResources(results);
   let newCommentEl = renderNewCommentEl();
@@ -276,23 +278,64 @@ function handleCommentHover(evt) {
   document.querySelector(`#lesson-container [data-position="${position}"]`).style.backgroundColor = 'turquoise';
 }
 
+function handleCommentClick(evt) {
+  console.log(evt.target.classList)
+  let commentAction = evt.target.classList[0];
+  if (commentAction === 'comment-thread') return renderCommentThread(evt);
+  if (commentAction === 'comment-delete') return deleteComment(evt);
+  if (commentAction === 'comment-hide') return hideComment(evt);
+  return editComment(evt);
+}
+
+function renderCommentThread(evt) {
+  
+}
+
+function deleteComment(evt) {
+  let lesson = lessonContainerEl.getAttribute('data-lesson')
+  let comment = evt.target.closest('div.comment');
+  comment = comment.getAttribute('data-comment');
+  fetch(`/api/comments/${comment}`, fetchOptions('DELETE'))
+  .then(() => fetchLesson(`/api/lessons/${lesson}`, renderLesson));
+}
+
+function hideComment(evt) {
+
+}
+
+function editComment(evt) {
+
+}
+
 function clearLessonStyles() {
   lessonContainerEl.childNodes.forEach(node => {
-    console.log(node)
     if (node.style) node.style.backgroundColor = 'none';
   });
 }
 
 function handleOptionsClick(evt) {
-  if (evt.target.closest('div#add-comment')) {
+  if (evt.target.closest('div#comment-add')) {
     optionsContainerEl.innerHTML = '';
     let newCommentForm = renderNewCommentFormEl();
-    optionsContainerEl.appendChild(optionsContainerEl);
+    optionsContainerEl.appendChild(newCommentForm);
+  }
+  if (evt.target.id = '#add-comment-submit') {
+
   }
 }
 
 function renderNewCommentFormEl() {
-
+  let newCommentForm = document.createElement('div');
+  newCommentForm.id = 'add-comment-form';
+  newCommentForm.innerHTML = `
+  <div class="comment">
+    <div class="comment-main">
+      <input type="number" name=""></input>
+      <input type="textarea" maxlength="250" cols="50" rows="5"></input>
+      <input id="add-comment-submit" type="button">
+    </div>
+  `;
+  return newCommentForm;
 }
 
 function handleLessonHover(evt) {
@@ -486,7 +529,6 @@ function renderForm(lessonId, pos) {
 
 // * create Comment from template
 function templateComment(comment, user) {
-  console.log(comment);
   return `
   <div class="comment-heading">
     <div class="comment-note">${comment.note}</div>
