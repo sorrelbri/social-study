@@ -61,6 +61,7 @@ document.getElementById('nav-margin').addEventListener('click', handleNavMarginC
 lessonContainerEl.addEventListener('click', handleLessonClick);
 optionsContainerEl.addEventListener('click', handleOptionsClick);
 commentContainerEl.addEventListener('click', handleCommentClick);
+navPaneBookmarkEl.addEventListener('click', handleNavPaneBookmarkClick);
 
 //!----- functions -----*/
 
@@ -204,10 +205,25 @@ function renderBookmarkPane(bookmarks) {
     let newLi = document.createElement('li');
     newLi.innerHTML = bookmark.note;
     newLi.setAttribute('data-lesson', bookmark.lesson);
+    newLi.setAttribute('data-bookmark', bookmark._id)
     navPaneBookmarkEl
     .getElementsByTagName('ul')[0]
     .appendChild(newLi);
   });
+}
+
+function handleNavPaneBookmarkClick(evt) {
+  if (evt.target.getAttribute('type') === 'submit') editBookmark(evt);
+  let previous = evt.target.textContent;
+  evt.target.innerHTML = `<input type="text" name="note" placeholder="${previous}"></input><input type="submit"></input>`
+}
+
+function editBookmark(evt) {
+  let payload = { note: evt.target.previousSibling.value};
+  let url = `/api/bookmarks/${evt.target.closest('li').getAttribute('data-bookmark')}`;
+  let lesson = evt.target.closest('li').getAttribute('data-lesson')
+  fetch(url, fetchOptions('PUT', payload))
+  .then(() => fetchLesson(`/api/lessons/${lesson}`, renderLesson));
 }
 
 function handleNavPaneTreeClick(evt) {

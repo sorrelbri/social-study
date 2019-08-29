@@ -21,7 +21,7 @@ router.post('/lessons/:id/comments/:pos', commentCtrl.create);
 
 //* Bookmarks
 router.post('/bookmarks', bookmarkCtrl.create);
-// router.put('/bookmarks/:id', bookmarkCtrl.edit);
+router.put('/bookmarks/:id', bookmarkCtrl.edit);
 // router.delete('/bookmarks/:id/delete', bookmarkCtrl.delete);
 
 //* Highlights
