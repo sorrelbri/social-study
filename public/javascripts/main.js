@@ -58,7 +58,7 @@ navBarEl.addEventListener('click', handleNavBarClick);
 navPaneTreeEl.addEventListener('click', handleNavPaneTreeClick);
 document.getElementById('nav-margin').addEventListener('click', handleNavMarginClick);
 // commentContainerEl.addEventListener('mouseover', handleCommentHover);
-lessonContainerEl.addEventListener('mouseover', handleLessonHover);
+lessonContainerEl.addEventListener('click', handleLessonClick);
 optionsContainerEl.addEventListener('click', handleOptionsClick);
 commentContainerEl.addEventListener('click', handleCommentClick);
 
@@ -217,7 +217,7 @@ function handleNavPaneTreeClick(evt) {
 
 function renderLesson(results) {
   lessonContainerEl.innerHTML = results.lesson.content;
-  lessonContainerEl.setAttribute('data-lesson', results.lesson.id)
+  lessonContainerEl.setAttribute('data-lesson', results.lesson._id)
   optionsContainerEl.innerHTML = '';
   renderResources(results);
   let newCommentEl = renderNewCommentEl();
@@ -279,11 +279,11 @@ function handleCommentHover(evt) {
 }
 
 function handleCommentClick(evt) {
-  console.log(evt.target.classList)
   let commentAction = evt.target.classList[0];
   if (commentAction === 'comment-thread') return renderCommentThread(evt);
   if (commentAction === 'comment-delete') return deleteComment(evt);
   if (commentAction === 'comment-hide') return hideComment(evt);
+  if (commentAction === 'add-bookmark-submit') return addBookmark(evt);
   return editComment(evt);
 }
 
@@ -297,6 +297,16 @@ function deleteComment(evt) {
   comment = comment.getAttribute('data-comment');
   fetch(`/api/comments/${comment}`, fetchOptions('DELETE'))
   .then(() => fetchLesson(`/api/lessons/${lesson}`, renderLesson));
+}
+
+function addBookmark(evt) {
+  let body = { 
+    position: evt.target.closest('div.new-form').getAttribute('data-ref'),
+    lesson: evt.target.closest('div.new-form').getAttribute('data-lesson'),
+    note: evt.target.closest('div.new-form').firstElementChild.value
+  }
+  fetch('/api/bookmarks', fetchOptions('POST', body))
+  .then(() => fetchLesson(`/api/lessons/${body.lesson}`, renderLesson))
 }
 
 function hideComment(evt) {
@@ -338,8 +348,20 @@ function renderNewCommentFormEl() {
   return newCommentForm;
 }
 
-function handleLessonHover(evt) {
-  // evt.target
+function handleLessonClick(evt) {
+  evt.stopPropagation();
+  let target = evt.target;
+  console.log(target);
+  let newBookmarkForm = document.createElement('div');
+  newBookmarkForm.setAttribute('data-ref', target.getAttribute('data-position'));
+  newBookmarkForm.setAttribute('data-lesson', lessonContainerEl.getAttribute('data-lesson'));
+  newBookmarkForm.innerHTML = `
+  <input name="note" type="text" placeholder="Add a Note"></input>
+  <input class="add-bookmark-submit" type="button">
+  `
+  newBookmarkForm.classList = 'new-form';
+  commentContainerEl.appendChild(newBookmarkForm);
+  newBookmarkForm.style.top = `${target.offsetTop}px`;
 }
 
 function renderBookmarks(results) {
@@ -445,15 +467,15 @@ function renderNavigate(lessons) {
 }
 
 //* display resource menu
-function handleLessonClick(evt) {
-  // TODO toggle menu and styling
-  evt.stopPropagation();
-  if (evt.target === lessonContainerEl) return;
-  evt.target.style.backgroundColor = "yellowgreen";
-  let pos = evt.target.getAttribute('data-position');
-  let lesson = lessonContainerEl.getAttribute('data-lesson');
-  renderForm(lesson, pos);
-}
+// function handleLessonClick(evt) {
+//   // TODO toggle menu and styling
+//   evt.stopPropagation();
+//   if (evt.target === lessonContainerEl) return;
+//   evt.target.style.backgroundColor = "yellowgreen";
+//   let pos = evt.target.getAttribute('data-position');
+//   let lesson = lessonContainerEl.getAttribute('data-lesson');
+//   renderForm(lesson, pos);
+// }
 
 // ! no more Navigate elem
 function handleNavigateClick(evt) {

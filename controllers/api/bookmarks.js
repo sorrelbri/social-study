@@ -6,19 +6,20 @@ module.exports = {
 }
 
 function create(req, res, next) {
-  Lesson.findById(req.params.id)
+  console.log(req.body)
+  Lesson.findById(req.body.lesson)
   .then(lesson => {
     Bookmark.create({
       note: req.body.note,
       lesson: lesson._id,
-      position: req.params.pos,
+      position: req.body.position,
       user: req.user
     })
     .then(newBookmark => {
       req.user.bookmarks.push(newBookmark._id);
     })
     .then(() => {
-      res.status(201).json(lesson._id);
+      res.status(201);
     })
   })
 }

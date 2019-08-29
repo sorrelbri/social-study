@@ -228,7 +228,7 @@ nav div.flex-item.flex-end {
   border-radius: 30px;
 }
 
-#comment-container .comment {
+#comment-container .comment, #comment-container .new-form {
   position: absolute;
 }
 

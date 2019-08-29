@@ -20,7 +20,7 @@ router.post('/lessons/:id/comments/:pos', commentCtrl.create);
 // router.post('/comments/:id/thread', commentCtrl.thread);
 
 //* Bookmarks
-router.post('/lessons/:id/bookmarks/:pos', bookmarkCtrl.create);
+router.post('/bookmarks', bookmarkCtrl.create);
 // router.put('/bookmarks/:id', bookmarkCtrl.edit);
 // router.delete('/bookmarks/:id/delete', bookmarkCtrl.delete);
 
