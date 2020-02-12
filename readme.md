@@ -7,7 +7,4 @@ A collaborative study aide
 ### Technologies Used
 Node, Express, MonogoDb, Passport, Fetch, Showdown, EJS
 
-[Go to the app!](https://ga-social-study.herokuapp.com/)
-
-### Next Steps
-Social Study will be rebuilt with a MERN stack to fully make use of single page view.
+Social Study no longer has access to lesson repository and is no longer in development.
